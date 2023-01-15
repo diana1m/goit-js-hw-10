@@ -22,9 +22,11 @@ function inputText (evn){
         fetchCountries(evn.target.value.trim())
         .then(data => {
             if(data.length > 10){
+                list.innerHTML = "";
+                infoBox.innerHTML = "";
                 Notiflix.Notify.info("Too many matches found. Please enter a more specific name.")
             } 
-            if(data.length >= 2 && data.length < 10){
+            if(data.length >= 2 && data.length <= 10){
                 infoBox.innerHTML = "";
                 list.innerHTML = createMarkupList(data)
             } 
@@ -34,7 +36,10 @@ function inputText (evn){
             }
         
         })
-        .catch(err => Notiflix.Notify.failure(err))
+        .catch(err => {
+            list.innerHTML = "";
+            infoBox.innerHTML = "";
+            Notiflix.Notify.failure(err)})
     }
 }
 
